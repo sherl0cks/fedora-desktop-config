@@ -1,0 +1,9 @@
+---
+# This playbook a copies the maven settings.xml 
+
+- hosts: local
+  remote_user: jholmes
+  
+  tasks:
+    - name: copy maven settings.xml
+      copy: src=files/settings.xml dest=~/.m2/settings.xml owner=jholmes group=jholmes	
