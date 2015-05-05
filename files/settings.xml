@@ -201,8 +201,8 @@ under the License.
           </snapshots>
         </repository>
       </repositories>
-      <pluginrepositories>
-        <pluginrepository>
+      <pluginRepositories>
+        <pluginRepository>
           <id>jboss-maven-repository</id>
           <name>JBoss Maven Repository</name>
           <url>http://maven.repository.redhat.com/techpreview/all/</url>
@@ -215,8 +215,8 @@ under the License.
             <enabled>false</enabled>
             <updatePolicy>never</updatePolicy>
           </snapshots>
-        </pluginrepository>
-      </pluginrepositories>
+        </pluginRepository>
+      </pluginRepositories>
     </profile>
     <!-- profile
      | Specifies a set of introductions to the build process, to be activated
