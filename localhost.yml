@@ -2,8 +2,49 @@
 # This playbook a copies the maven settings.xml 
 
 - hosts: local
-  remote_user: jholmes
+ 
+  become: yes 
   
   tasks:
+
+    - include: tasks/webex.yml    
+
+    - name: install maven
+      dnf: name=maven state=latest
+    
+    - name: create .m2
+      file:  path=/home/sherl0cks/.m2 state=directory mode=0700
+
     - name: copy maven settings.xml
-      copy: src=files/settings.xml dest=~/.m2/settings.xml owner=jholmes group=jholmes	
+      copy: src=files/settings.xml dest=/home/sherl0cks/.m2/settings.xml owner=sherl0cks group=sherl0cks    
+    - name: install jdk
+      dnf: name=java-devel state=latest
+      
+    - name: install power manager "tuned"
+      dnf: name=tuned state=latest
+    
+    - name: start tuned
+      service: name=tuned state=started enabled=yes
+      
+    - name: copy .bashrc
+      copy: src=files/bashrc dest=/home/sherl0cks/.bashrc owner=sherl0cks group=sherl0cks
+
+    - name: install docker
+      dnf: name=docker state=latest      
+
+    - name: add docker group
+      group: name=docker state=present    
+
+    - name: add me to docker group
+      user: name=sherl0cks state=present groups=docker append=yes      
+    
+    - name: change ownership of docker socket
+      file: path=/var/run/docker.sock owner=root group=docker     
+ 
+    - name: start and enable docker
+      service: name=docker state=started enabled=yes 
+
+    - name: install node
+      dnf: name=nodejs state=latest
+
+
