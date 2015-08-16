@@ -1,20 +1,20 @@
 ---
-# This playbook installs the packages needed to get webex working on fedora 20+ 
-        
-    - name: install icedtea-web for java in the browser
-      dnf: name=icedtea-web state=latest
-    
-    - name: install libXmu.i686
-      dnf: name=libXmu.i686 state=latest
-      
-    - name: install gtk2.i686
-      dnf: name=gtk2.i686 state=latest
+# This playbook installs the packages needed to get webex working on fedora 22+ 
 
-    - name: install libXt.i686
-      dnf: name=libXt.i686 state=latest
-   
-    - name: install java.i686
-      dnf: name=java-1.8.0-openjdk.i686 state=latest
-  
-    - name: install pangox-compat.i686
-      dnf: name=pangox-compat.i686 state=latest   
+- name: install icedtea-web for java in the browser
+  dnf: name=icedtea-web state=latest
+
+- name: install libXmu.i686
+  dnf: name=libXmu.i686 state=latest
+
+- name: install gtk2.i686
+  dnf: name=gtk2.i686 state=latest
+
+- name: install libXt.i686
+  dnf: name=libXt.i686 state=latest
+
+- name: install java.i686
+  dnf: name=java-1.8.0-openjdk.i686 state=latest
+
+- name: install pangox-compat.i686
+  dnf: name=pangox-compat.i686 state=latest   

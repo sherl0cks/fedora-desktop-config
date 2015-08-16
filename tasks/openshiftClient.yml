@@ -1,0 +1,12 @@
+---
+# This playbook installs the packages for rhc client on fedora 22+ 
+        
+- name: install ruby package
+  dnf: name=ruby state=latest
+
+- name: install rubygem-rhc package
+  dnf: name=rubygem-rhc state=latest	
+
+- name: install rhc gem
+  gem: name=rhc state=latest
+

@@ -7,13 +7,14 @@
   
   tasks:
 
-    - include: tasks/webex.yml    
+    - include: tasks/webex.yml
+    - include: tasks/openshiftClient.yml    
 
     - name: install maven
       dnf: name=maven state=latest
     
     - name: create .m2
-      file:  path=/home/sherl0cks/.m2 state=directory mode=0700
+      file:  path=/home/sherl0cks/.m2 state=directory mode=0755 owner=sherl0cks group=sherl0cks    
 
     - name: copy maven settings.xml
       copy: src=files/settings.xml dest=/home/sherl0cks/.m2/settings.xml owner=sherl0cks group=sherl0cks    
@@ -47,4 +48,14 @@
     - name: install node
       dnf: name=nodejs state=latest
 
+    - name: install gnome-tweak-tool
+      dnf: name=gnome-tweak-tool state=latest
 
+    - name: create Code directory
+      file:  path=/home/sherl0cks/Code state=directory mode=0755
+
+    - name: create Servers directory
+      file:  path=/home/sherl0cks/Servers state=directory mode=0755
+
+    - name: create ProductZips
+      file:  path=/home/sherl0cks/ProductZips state=directory mode=0755
