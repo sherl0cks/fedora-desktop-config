@@ -10,6 +10,7 @@
 - name: install mp3 packages
   dnf: name={{ item }} state=latest
   with_items:
+  - "gstreamer1-plugins-ugly"
   - "gstreamer"
   - "gstreamer-ffmpeg"   
   - "gstreamer-plugins-bad"
