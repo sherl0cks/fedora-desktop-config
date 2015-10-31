@@ -8,7 +8,8 @@
   tasks:
 
     - include: tasks/webex.yml
-    - include: tasks/openshiftClient.yml    
+    - include: tasks/openshiftClient.yml   
+    - include: tasks/mp3.yml	 
 
     - name: install maven
       dnf: name=maven state=latest

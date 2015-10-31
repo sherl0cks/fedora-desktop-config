@@ -1,0 +1,28 @@
+---
+# This task installs the packages for mp3
+- name: install fusion repos
+  dnf: name={{ item }} state=present
+  with_items:
+  - "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm"  
+  - "http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm"  
+
+
+- name: install mp3 packages
+  dnf: name={{ item }} state=latest
+  with_items:
+  - "gstreamer"
+  - "gstreamer-ffmpeg"   
+  - "gstreamer-plugins-bad"
+  - "gstreamer-plugins-bad"
+  - "gstreamer-plugins-bad-free"
+  - "gstreamer-plugins-bad-free-extras"
+  - "gstreamer-plugins-base"
+  - "gstreamer-plugins-good"
+  - "gstreamer-plugins-ugly"
+  - "faad2"
+  - "libdca"
+  - "wget"
+  - "compat-libstdc++-33"
+  - "compat-libstdc++-296"
+  - "xine-lib-extras-freeworld"
+
