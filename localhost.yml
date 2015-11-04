@@ -1,15 +1,18 @@
 ---
 # This playbook a copies the maven settings.xml 
 
-- hosts: local
+- hosts: 127.0.0.1
  
   become: yes 
   
   tasks:
 
+    - name: bootstrap packages for ansible
+      shell: dnf install python-dnf libselinux-python -y 	
+
     - include: tasks/webex.yml
     - include: tasks/openshiftClient.yml   
-    - include: tasks/mp3.yml	 
+#    - include: tasks/mp3.yml	 
 
     - name: install maven
       dnf: name=maven state=latest
@@ -34,17 +37,20 @@
     - name: install docker
       dnf: name=docker state=latest      
 
+    - name: install htop
+      dnf: name=htop state=latest
+
     - name: add docker group
       group: name=docker state=present    
 
     - name: add me to docker group
       user: name=sherl0cks state=present groups=docker append=yes      
     
-    - name: change ownership of docker socket
-      file: path=/var/run/docker.sock owner=root group=docker     
- 
     - name: start and enable docker
       service: name=docker state=started enabled=yes 
+
+    - name: change ownership of docker socket
+      file: path=/var/run/docker.sock owner=root group=docker 
 
     - name: install node
       dnf: name=nodejs state=latest
