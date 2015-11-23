@@ -18,3 +18,7 @@
 
 - name: install pangox-compat.i686
   dnf: name=pangox-compat.i686 state=latest   
+
+# gtk2-2.24.28-2.fc23.i686
+# libuuid-2.27.1-1.fc23.i686
+# libXmu-1.1.2-3.fc23.i686
