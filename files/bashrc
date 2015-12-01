@@ -19,3 +19,14 @@ alias balanced='sudo tuned-adm profile balanced'
 alias performance='sudo tuned-adm profile throughput-performance'
 alias update='sudo yum update -y'
 alias pajammery="ssh root@45.55.66.249"
+
+function dtf_func { ls -l "$1" | tail; }
+alias dtf=dtf_func
+
+function denter_func { sudo nsenter --target $1 --mount --uts --ipc --net --pid; }
+alias denter=denter_func
+
+function os1list_func { nova list | grep jholmes }
+alias os1list=os1list_func
+
+
