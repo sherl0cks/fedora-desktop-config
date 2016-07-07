@@ -1,56 +1,56 @@
 ---
-# This playbook a copies the maven settings.xml 
+# This playbook a copies the maven settings.xml
 
 - hosts: 127.0.0.1
- 
-  become: yes 
-  
+
+  become: yes
+
   tasks:
 
     - name: bootstrap packages for ansible
-      shell: dnf install python-dnf libselinux-python -y 	
+      shell: dnf install python-dnf libselinux-python -y
 
     - include: tasks/webex.yml
-    - include: tasks/openshiftClient.yml   
-#    - include: tasks/mp3.yml	 
+    - include: tasks/openshiftClient.yml
+#    - include: tasks/mp3.yml
 
     - name: install maven
       dnf: name=maven state=latest
-    
+
     - name: create .m2
-      file:  path=/home/sherl0cks/.m2 state=directory mode=0755 owner=sherl0cks group=sherl0cks    
+      file:  path=/home/sherl0cks/.m2 state=directory mode=0755 owner=sherl0cks group=sherl0cks
 
     - name: copy maven settings.xml
-      copy: src=files/settings.xml dest=/home/sherl0cks/.m2/settings.xml owner=sherl0cks group=sherl0cks    
+      copy: src=files/settings.xml dest=/home/sherl0cks/.m2/settings.xml owner=sherl0cks group=sherl0cks
     - name: install jdk
       dnf: name=java-devel state=latest
-      
+
     - name: install power manager "tuned"
       dnf: name=tuned state=latest
-    
+
     - name: start tuned
       service: name=tuned state=started enabled=yes
-      
+
     - name: copy .bashrc
       copy: src=files/bashrc dest=/home/sherl0cks/.bashrc owner=sherl0cks group=sherl0cks
 
     - name: install docker
-      dnf: name=docker state=latest      
+      dnf: name=docker state=latest
 
     - name: install htop
       dnf: name=htop state=latest
 
     - name: add docker group
-      group: name=docker state=present    
+      group: name=docker state=present
 
     - name: add me to docker group
-      user: name=sherl0cks state=present groups=docker append=yes      
-    
+      user: name=sherl0cks state=present groups=docker append=yes
+
     - name: start and enable docker
-      service: name=docker state=started enabled=yes 
+      service: name=docker state=started enabled=yes
 
     - name: change ownership of docker socket
-      file: path=/var/run/docker.sock owner=root group=docker 
+      file: path=/var/run/docker.sock owner=root group=docker
 
     - name: install node
       dnf: name=nodejs state=latest
@@ -66,3 +66,14 @@
 
     - name: create ProductZips
       file:  path=/home/sherl0cks/ProductZips state=directory mode=0755
+
+
+### Packages as I'm lazy
+    - name: install items
+      dnf:
+        name:{{ item }}
+        state:latest
+      with_items:
+      - vagrant
+      - vagrant-libvirt
+

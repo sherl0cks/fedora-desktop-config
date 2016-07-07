@@ -17,6 +17,11 @@ export CLUTTER_PAINT=disable-clipped-redraws:disable-culling
 # fix for eclipse / bpmn2 editor issues
 export SWT_GTK3=0
 
+# https://github.com/rbenv/rbenv/blob/master/README.md#basic-github-checkout
+export PATH="$HOME/.rbenv/bin:$PATH"
+
+export ANSIBLE_HOST_KEY_CHECKING=False
+
 # User specific aliases and functions
 alias ll='ls -alhr --color=auto'
 alias powersave='sudo tuned-adm profile powersave'
@@ -24,6 +29,13 @@ alias balanced='sudo tuned-adm profile balanced'
 alias performance='sudo tuned-adm profile throughput-performance'
 alias update='sudo yum update -y'
 alias pajammery="ssh root@45.55.66.249"
+alias os1public="source ~/Code/ansible-openstack-etc/openstack/auth/os1_public.sh"
+alias os1private="source ~/Code/ansible-openstack-etc/openstack/auth/os1_private.sh"
+alias sshfs="ssh cloud-user@209.132.178.251"
+alias sshp="ssh cloud-user@209.132.178.214"
+alias sshch="ssh cloud-user@209.132.178.218"
+alias bb="bundle exec jekyll build; jekyll serve"
+alias cpb="cp -r ~/Blog/jasper-pages/* ~/Blog/sherl0cks.github.io"
 
 function dtailf_func { journalctl -f CONTAINER_NAME=$1; }
 alias dtailf=dtailf_func
@@ -33,4 +45,10 @@ alias denter=denter_func
 
 function os1list_func { nova list | grep jholmes; }
 alias os1list=os1list_func
+
+function scpfs_func { scp $1 cloud-user@209.132.178.251:~/files; ssh cloud-user@209.132.178.251; ./stageFiles.sh;  }
+alias scpfs=scpfs_func
+
+eval "$(rbenv init -)"
+
 
