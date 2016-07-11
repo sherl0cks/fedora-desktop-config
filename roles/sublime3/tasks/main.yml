@@ -1,0 +1,53 @@
+---
+- name: Create Sublime Directory
+  become: yes
+  file:
+    path: /opt/sublime
+    state: directory
+    owner: root
+    group: root
+
+- name: Download Sublime Bits
+  get_url: 
+    url: https://download.sublimetext.com/sublime_text_3_build_3114_x64.tar.bz2
+    dest: /tmp/sublime.tar.bz2
+
+- name: Untar Sublime Bits
+  become: yes
+  unarchive:
+    src: /tmp/sublime.tar.bz2
+    dest: /opt/sublime
+  
+- name: Copy .desktop
+  become: yes
+  copy:
+    src: sublime_text.desktop
+    dest: /usr/share/applications/sublime_text.desktop
+    mode: 0644
+
+- name: Symbolic Link for Icons
+  become: yes
+  file:
+    src: "/opt/sublime/sublime_text_3/Icon/{{ item }}/sublime-text.png"
+    dest: "/usr/share/icons/hicolor/{{ item }}/apps/sublime-text.png"
+    state: link
+    owner: root
+    group: root
+  with_items:
+  - "128x128"
+  - "16x16"
+  - "256x256"
+  - "32x32"
+  - "48x48"
+
+- name: Reload Icons
+  become: yes
+  shell: gtk-update-icon-cache /usr/share/icons/hicolor
+
+- name: Create Start Script
+  become: yes
+  copy:
+    src: sublime.sh
+    dest: /usr/bin/sublime
+    mode: 0755
+
