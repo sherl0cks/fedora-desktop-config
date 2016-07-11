@@ -1,0 +1,5 @@
+---
+- name: Ansible Config
+  copy: 
+    src: ansible.cfg
+    dest: ~/.ansible.cfg
