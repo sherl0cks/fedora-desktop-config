@@ -1,0 +1,26 @@
+---
+- name: Install docker packages
+  become: true
+  package:
+    name: docker
+    state: latest
+
+- name: Create docker group
+  become: true
+  group: 
+    name: docker
+    state: present
+
+- name: Add user to ansible group
+  become: true
+  user:  
+    name: sherl0cks
+    state: present
+    groups: docker
+    append: yes 
+
+- name: Start and enable docker service
+  become: true
+  service:  
+    name: docker
+    state: restarted

@@ -1,0 +1,37 @@
+---
+- name: Install Package
+  become: yes
+  package:
+    name: httpd
+    state: latest
+
+- name: Set Selinux booleans
+  become: yes
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+
+- name: Change welcome.cong
+  become: yes
+  copy:
+    src: welcome.conf
+    dest: /etc/httpd/conf.d/welcome.conf
+
+# make symlink here to ProductZips - I'm too lazy right now
+
+- name: Add permision so httpd can follow symlinks to user home
+  become: yes
+  file:
+    path: "/home/{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+  - sherl0cks
+  - sherl0cks/ProductZips    
+
+- name: Start httpd
+  become: yes
+  service:
+    name: httpd
+    state: restarted

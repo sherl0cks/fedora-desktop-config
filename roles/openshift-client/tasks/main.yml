@@ -1,0 +1,25 @@
+---
+- name: Create binary directory
+  become: true
+  file:
+    path: /opt/oc
+    state: directory
+
+- name: Unzip binaries
+  unarchive:
+    src: oc-3.1.1.6-linux.tar.gz
+    dest: /tmp
+
+- name: Move binary to /opt
+  become: true
+  copy: 
+    src: /tmp/mnt/redhat/staging-cds/ose-clients-3.1.1.6/usr/share/atomic-openshift/linux/oc
+    dest: /opt/oc
+    mode: 0755
+
+- name: Create binary symlink
+  become: true
+  file:
+    src: /opt/oc/oc
+    dest: /usr/bin/oc
+    state: link
