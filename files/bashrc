@@ -17,9 +17,6 @@ export CLUTTER_PAINT=disable-clipped-redraws:disable-culling
 # fix for eclipse / bpmn2 editor issues
 export SWT_GTK3=0
 
-# https://github.com/rbenv/rbenv/blob/master/README.md#basic-github-checkout
-export PATH="$HOME/.rbenv/bin:$PATH"
-
 export ANSIBLE_HOST_KEY_CHECKING=False
 
 # User specific aliases and functions
@@ -36,6 +33,7 @@ alias sshp="ssh cloud-user@209.132.178.214"
 alias sshch="ssh cloud-user@209.132.178.218"
 alias bb="bundle exec jekyll build; jekyll serve"
 alias cpb="cp -r ~/Blog/jasper-pages/* ~/Blog/sherl0cks.github.io"
+alias osemaster="ssh jholmes-redhat.com@oselab-74da.oslab.opentlc.com"
 
 function dtailf_func { journalctl -f CONTAINER_NAME=$1; }
 alias dtailf=dtailf_func
@@ -48,7 +46,4 @@ alias os1list=os1list_func
 
 function scpfs_func { scp $1 cloud-user@209.132.178.251:~/files; ssh cloud-user@209.132.178.251; ./stageFiles.sh;  }
 alias scpfs=scpfs_func
-
-eval "$(rbenv init -)"
-
 
