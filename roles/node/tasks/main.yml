@@ -1,0 +1,12 @@
+---
+- name: Setup
+  become: yes
+  shell: "curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -"
+
+- name: Install packages
+  become: yes
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+  - nodejs
